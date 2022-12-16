@@ -138,7 +138,7 @@ export class SystemSettingsService {
     );
   }
 
-  updateSystemSettings(data): Observable<any> {
+  updateSystemSettings(data: { uuid: any; }): Observable<any> {
     return this.httpClient
       .post(`systemsetting/${data?.uuid ? data?.uuid : ""}`, data)
       .pipe(

@@ -18,6 +18,7 @@ Given("I have list of drugs", () => {
   cy.selectRoom("Billing");
   cy.contains("Maintenance").click();
   cy.contains("Price List").click();
+  window.location.reload();
 });
 
 When("I supply and save drugs list and price", datatable => {
@@ -47,6 +48,7 @@ When("I supply and save drugs list and price", datatable => {
 
     cy.get(`#save-price-btn-${kebabCase(element.name)}`).click();
   });*/
+  cy.reload(true);
   cy.intercept('GET', '/openmrs/ws/rest/v1/concept', { fixture: 'empty-results.json' }).as('getResults');
   cy.intercept('POST', '/openmrs/ws/rest/v1/icare/item', { fixture: 'empty-results.json' });
   datatable.hashes().forEach(element => {
@@ -73,6 +75,7 @@ When("I supply and save registration pricing", datatable => {
     cy.contains("Add Item").click();
     cy.get('input[id="search-pricing-item-input"]').type(element.name);
     cy.get("span").contains(element.name).click();
+    cy.reload(true);
     //cy.get("button").contains("Save").click();
 
     cy.contains(element.name).should("be.visible");
